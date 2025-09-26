@@ -27,6 +27,22 @@ int main()
 	}
 
 
+	MyDblLinkedList.Clear();
+
+	cout << "\n\n";
+
+	MyDblLinkedList.PrintList();
+
+	cout << "\nNumbers of Item in the linked list is " << MyDblLinkedList.Size();
+
+	if (MyDblLinkedList.IsEmpty())
+	{
+		cout << "\n\nYes List is Empty";
+	}
+	else
+	{
+		cout << "\n\nNo List is not Empty";
+	}
 	
 
 	
