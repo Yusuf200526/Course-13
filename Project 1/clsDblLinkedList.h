@@ -95,6 +95,24 @@ public:
         _Size++;
     }
 
+    bool InsertAfter(int Index, T Value)
+    {
+        if ((Index + 1) > _Size || Index < 0)
+        {
+            return false;
+        }
+
+        Node* ItemNode = GetNode(Index);
+
+        if (ItemNode != NULL)
+        {
+            InsertAfter(ItemNode, Value);
+            return true;
+        }
+        else
+            return false;
+    }
+
     void InsertAtEnd(T value) {
 
         /*

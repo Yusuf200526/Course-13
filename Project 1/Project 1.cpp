@@ -15,10 +15,11 @@ int main()
 
 	cout << "\n\n\n";
 
-	MyDblLinkedList.UpdateItem(1, 500);
+	
+    
+	cout<<MyDblLinkedList.InsertAfter(3, 5.5);
 
 	MyDblLinkedList.PrintList();
-    
 
 	system("pause>0");
 
