@@ -27,8 +27,7 @@ int main()
 	}
 
 
-	MyDblLinkedList.Clear();
-
+	
 	cout << "\n\n";
 
 	MyDblLinkedList.PrintList();
@@ -45,6 +44,11 @@ int main()
 	}
 	
 
+	MyDblLinkedList.Reverse();
+
+	cout << "\n\n";
+
+	MyDblLinkedList.PrintList();
 	
 
 	system("pause>0");
