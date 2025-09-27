@@ -44,14 +44,11 @@ int main()
 	}
 	
 
-	clsDblLinkedList<int>::Node* N = MyDblLinkedList.GetNode(4);
+	
+	cout << MyDblLinkedList.GetItem(2);
+	
 
-	if (N != NULL)
-	{
-		cout << "\n\n" << N->value;
-	}
-	else
-		cout << "Out of Bound";
+    
 
 	system("pause>0");
 
