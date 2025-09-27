@@ -44,15 +44,20 @@ int main()
 	}
 	
 
-	MyDblLinkedList.Reverse();
+	clsDblLinkedList<int>::Node* N = MyDblLinkedList.GetNode(4);
 
-	cout << "\n\n";
-
-	MyDblLinkedList.PrintList();
-	
+	if (N != NULL)
+	{
+		cout << "\n\n" << N->value;
+	}
+	else
+		cout << "Out of Bound";
 
 	system("pause>0");
 
 	return 0;
 
 }
+
+
+
