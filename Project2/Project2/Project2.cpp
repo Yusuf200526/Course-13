@@ -20,6 +20,37 @@ int main()
 	cout << MyQueue.Back() << endl;
 	cout << MyQueue.Size() << endl;
 
+	MyQueue.Pop();
+
+	cout << "\n\n" << MyQueue.GetItem(2);
+	MyQueue.Reverse();
+	cout << "\n\n";
+	MyQueue.Print();
+
+	cout << "\n\n";
+	MyQueue.UpdateItem(2, 1000);
+	MyQueue.Print();
+
+	cout << "\n\n";
+	MyQueue.InsertAfter(2, 20000);
+	MyQueue.Print();
+
+	cout << "\n\n";
+
+	MyQueue.InsertAtFront(0);
+	MyQueue.Print();
+	cout << "\n\n";
+
+	MyQueue.InsertAtBack(0);
+	MyQueue.Print();
+	cout << "\n\n";
+
+	MyQueue.Clear();
+
+	MyQueue.Print();
+
+
+
 
 	system("pause>0");
 

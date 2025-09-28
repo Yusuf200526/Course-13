@@ -3,7 +3,7 @@
 #include"clsDblLinkedList.h"
 using namespace std;
 template <class T>
-class clsMyQueue 
+class clsMyQueue
 {
 protected:
 
@@ -45,6 +45,50 @@ public:
 	{
 		return _MyList.GetItem((Size() - 1));
 	}
+
+	////-------------------
+
+	// Extension 1 :
+	T GetItem(int Index)
+	{
+		return _MyList.GetItem(Index);
+	}
+
+	// Extension 2 :
+	void Reverse()
+	{
+		_MyList.Reverse();
+	}
+
+	// Extension 3 :
+	void UpdateItem(int Index,T NewValue)
+	{
+		return 	_MyList.UpdateItem(Index, NewValue);
+	}
+
+	// Extension 4 :
+	bool InsertAfter(int Index, T Item)
+	{
+		return _MyList.InsertAfter(Index, Item);
+	}
+
+	// Extension 5 : 
+	void InsertAtFront(T Value)
+	{
+		_MyList.InsertAtBeginning(Value);
+	}
 	
+	// Extension 6 : 
+	void InsertAtBack(T Value)
+	{
+		_MyList.InsertAtEnd(Value);
+	}
+
+	// Extension 7 : 
+	void Clear()
+	{
+		_MyList.Clear();
+	}
+
 };
 
