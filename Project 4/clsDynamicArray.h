@@ -6,7 +6,7 @@ class clsDynamicArray
 {
 protected:
 	int _Size = 0;
-	T* TempArray;
+	T* _TempArray;
 public:
 
 	T* OriginalArray;
@@ -56,7 +56,7 @@ public:
 			NewSize = 0;
 		}
 
-		TempArray = new T[NewSize];
+		_TempArray = new T[NewSize];
 
 		if (NewSize < _Size)
 		{
@@ -66,17 +66,47 @@ public:
 
 		for (int i = 0; i < _Size; i++)
 		{
-			TempArray[i] = OriginalArray[i];
+			_TempArray[i] = OriginalArray[i];
 		}
 
 		_Size = NewSize;
 
 		delete[]OriginalArray;
 
-		OriginalArray = TempArray;
+		OriginalArray = _TempArray;
 
 	}
 	
-	
+	T GetItem(int Index)
+	{
+		if (Index < 0 || Index >= _Size)
+		{
+			Index = 0;
+		}
+
+		return OriginalArray[Index];
+	}
+
+	void Reverse()
+	{
+		_TempArray = new T[_Size];
+
+		for (int i = 0; i < _Size; i++)
+		{
+			_TempArray[i] = OriginalArray[(_Size-1) - i];
+		}
+
+		delete[]OriginalArray;
+
+		OriginalArray = _TempArray;
+	}
+
+	void Clear()
+	{
+		_Size = 0;
+		_TempArray = new T[0];
+		delete[]OriginalArray;
+		OriginalArray = _TempArray;
+	}
 };
 
