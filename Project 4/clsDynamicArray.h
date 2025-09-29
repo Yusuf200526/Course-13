@@ -176,7 +176,7 @@ public:
 
 	bool InsertAt(int Index, T Value)
 	{
-		if (Index < 0 || Index >= _Size)
+		if (Index < 0 || Index > _Size)
 		{
 			return false;
 		}
@@ -205,5 +205,31 @@ public:
 		return true;
 	}
 
+
+	void InsertAtBeginning(T Value)
+	{
+		InsertAt(0, Value);
+	}
+
+	bool InsertBefore(int Index, T Value)
+	{
+		if (Index < 1)
+			return InsertAt(0, Value);
+		else
+			return InsertAt(Index - 1, Value);
+	}
+
+	bool InsertAfter(int Index, T Value)
+	{
+		if (Index >= _Size)
+			return InsertAt(_Size - 1, Value);
+		else
+			InsertAt(Index + 1, Value);
+	}
+
+	void InsertAtEnd(T Value)
+	{
+		InsertAt(_Size, Value);
+	}
 };
 
