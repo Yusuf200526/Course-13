@@ -22,7 +22,22 @@ int main()
     cout << "\nArray Items: \n";
 
     MyDynamicArray.PrintList();
+   
 
+
+    MyDynamicArray.Resize(2);
+
+    cout << "\n\nArray Size " << MyDynamicArray.Size() << "\n";
+    cout << "Array Items after resize to 2\n";
+    MyDynamicArray.PrintList();
+
+    cout << "\n\n";
+
+    MyDynamicArray.Resize(10);
+
+    cout << "Array Size " << MyDynamicArray.Size() << "\n";
+    cout << "Array Items after resize to 10 \n";
+    MyDynamicArray.PrintList();
 
 
 
