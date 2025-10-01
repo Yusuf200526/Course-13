@@ -1,49 +1,37 @@
-#include<iostream>
-#include"clsQueueLine.h"
+//ProgrammingAdvices.com
+//Mohammed Abu-Hadhoud
+
+#include <iostream>
+#include "clsQueueLine.h"
+
 using namespace std;
+
 int main()
 {
-	clsQueueLine MyQueueLine("A0", 10);
 
-	MyQueueLine.IssueTicket();
-	MyQueueLine.IssueTicket();
-	MyQueueLine.IssueTicket();
-
-	MyQueueLine.PrintInfo();
-
-	cout << "\n\n";
-
-	MyQueueLine.PrintTicketsRTL();
-	cout << "\n\n";
-
-	MyQueueLine.PrintTicketsLTR();
+    clsQueueLine PayBillsQueue("A0", 10);
 
 
-	cout << "\n\n\n";
+    PayBillsQueue.IssueTicket();
+    PayBillsQueue.IssueTicket();
+    PayBillsQueue.IssueTicket();
+    PayBillsQueue.IssueTicket();
+    PayBillsQueue.IssueTicket();
 
-	MyQueueLine.PrintAllTickets();
+    PayBillsQueue.PrintInfo();
 
-	MyQueueLine.ServeNextClient();
+    PayBillsQueue.PrintAllTickets();
 
-	cout << "\n\n\n";
+    PayBillsQueue.ServeNextClient();
 
-	MyQueueLine.PrintInfo();
+    PayBillsQueue.PrintInfo();
 
-	cout << "\n\n";
+    PayBillsQueue.PrintAllTickets();
 
-	MyQueueLine.PrintAllTickets();
 
-	
-	MyQueueLine.ServeNextClient();
 
-	cout << "\n\n\n";
+    system("pause>0");
 
-	MyQueueLine.PrintInfo();
-
-	cout << "\n\n";
-
-	MyQueueLine.PrintAllTickets();
-
-	system("pause>0");
-	return 0;
+    return 0;
 }
+

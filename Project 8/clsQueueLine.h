@@ -1,136 +1,187 @@
 #pragma once
 #include<iostream>
 #include<queue>
+#include<stack>
 #include<string>
 #include"/Users/YUSUF/My Repos/LIbraries/clsDate.h"
 using namespace std;
 class clsQueueLine 
 {
 private:
-	string _Prefix = ""; //from constructer
-	 int _TotalTickets = 0; // when issue ticket just up 
-	 int _ServedClients = 0;  // related to waiting clients 
-	 short _AverageServeTime = 0; // from constructer
-	
+
+	int _TotalTickets;
+	short _AverageTimeToServe;
+	string _Prefix;
 
 	class _clsTicket
 	{
+	private:
+		short _Number; // 
+		string _Prefix;//
+		int _WaitingClients;  // 
+		string _TicketTime;  // 
+		short _AverageTimeToServe; // 
 	public:
-		string BookingTime = "";
-		short YourNumber = 0;
 
-		_clsTicket()
+		_clsTicket(string Prefix, short Number, int WaitingClients, short AverageTimeToServe)
 		{
-
+			_TicketTime = clsDate::GetSystemDateTimeString();
+			_Prefix = Prefix;
+			_Number = Number;
+			_WaitingClients = WaitingClients;
+			_AverageTimeToServe = AverageTimeToServe;
 		}
 
-		_clsTicket(int WaitingClients)
+		string TicketTime()
 		{
-			BookingTime = clsDate::GetSystemDateTimeString();  // need more focus 
-			YourNumber = WaitingClients;
+			return _TicketTime;
+		}
+
+		string FullNumber()// 
+		{
+			return _Prefix + to_string(_Number);
+		}
+
+		short ExpectedTimeToServe()// 
+		{
+			return _AverageTimeToServe * _WaitingClients; 
+		}
+
+
+		int WaitingClients()
+		{
+			return _WaitingClients;
+		}
+
+		void Print()
+		{
+			cout << "\n\t\t\t  _______________________\n";
+			cout << "\n\t\t\t\t    " << FullNumber();
+			cout << "\n\n\t\t\t    " << TicketTime();
+			cout << "\n\t\t\t    Wating Clients = " << WaitingClients();
+			cout << "\n\t\t\t      Serve Time In";
+			cout << "\n\t\t\t       " << ExpectedTimeToServe() << " Minutes.";
+			cout << "\n\t\t\t  _______________________\n";
+
 		}
 	};
 
-	queue<_clsTicket> _MyQueue;
-
-	void _PrintHeaderOfInfo()
-	{
-		cout << "\t\t\t\t\t__________________________________";
-		cout << "\n\n\t\t\t\t\t\t  Queue Info";
-		cout << "\n\t\t\t\t\t__________________________________";
-	}
-
-
-	void _PrintTicket(_clsTicket Ticket)
-	{
-		int WaitingBefore = Ticket.YourNumber - _ServedClients - 1;
-		int ExpectedTime = WaitingBefore * _AverageServeTime;
-
-		cout << "\t\t\t\t\t\t\t"<<_Prefix<<Ticket.YourNumber;
-		cout << "\n\n";
-		cout << "\t\t\t\t\t\t" << Ticket.BookingTime;
-		cout << "\n\t\t\t\t\t\tWaiting Clients =" << WaitingBefore;
-		cout << "\n\t\t\t\t\t\t Serve Time In";
-		cout << "\n\t\t\t\t\t\t  " << ExpectedTime << " Minutes.";
-	}
+	queue <_clsTicket> _MyQueueLine;
 
 public:
 
-	clsQueueLine(string Prefix, short AverageServeTime)
+	
+
+	clsQueueLine(string Prefix, int AverageTimeToServe)
 	{
 		_Prefix = Prefix;
-		_AverageServeTime = AverageServeTime;
+		_AverageTimeToServe = AverageTimeToServe;
+		_TotalTickets = 0;
 	}
 
 	void IssueTicket()
 	{
 		_TotalTickets++;
-		_clsTicket Ticket(_MyQueue.size() + 1);
-		_MyQueue.push(Ticket);
+		_clsTicket Ticket(_Prefix, _TotalTickets, WaitingClients(), _AverageTimeToServe);
+		_MyQueueLine.push(Ticket);
+	}
+
+
+	string WhoIsNext()
+	{
+		if (_MyQueueLine.empty())
+			return  "No Clients Left.";
+		else
+			return _MyQueueLine.front().FullNumber();
+	}
+
+	bool ServeNextClient()
+	{
+		if (_MyQueueLine.empty())
+			return false;
+
+		_MyQueueLine.pop();
+		return true;
+	}
+
+	int ServedClients()
+	{
+		return _TotalTickets - WaitingClients();
 	}
 
 	void PrintInfo()
 	{
-		_PrintHeaderOfInfo();
-		cout << "\n\n\t\t\t\t\t  Prefix            =" << _Prefix;
-		cout << "\n\t\t\t\t\t  Total Tickets     =" << _TotalTickets;
-		cout << "\n\t\t\t\t\t  Served Clients    =" << _ServedClients;  // done
-		cout << "\n\t\t\t\t\t  Waiting Clients   =" << _MyQueue.size();
-
-		cout << "\n\t\t\t\t\t__________________________________";
+		cout << "\n\t\t\t _________________________\n";
+		cout << "\n\t\t\t\tQueue Info";
+		cout << "\n\t\t\t _________________________\n";
+		cout << "\n\t\t\t    Prefix   = " << _Prefix;
+		cout << "\n\t\t\t    Total Tickets   = " << _TotalTickets;
+		cout << "\n\t\t\t    Served Clients  = " << ServedClients();
+		cout << "\n\t\t\t    Wating Clients  = " << WaitingClients(); ;
+		cout << "\n\t\t\t _________________________\n";
+		cout << "\n";
 	}
 
-	void PrintTicketsRTL()
+	void PrintTicketsLineRTL()
 	{
-		queue <_clsTicket> TempQueue = _MyQueue;
-		_clsTicket TempTicket;
-		cout << "\t\t\tTickets:  ";
-		while (!TempQueue.empty())
+		if(_MyQueueLine.empty())
+			cout << "\n\t\tTickets: No Tickets.";
+		
+		queue<_clsTicket> TempQueueLine = _MyQueueLine;
+		while (!TempQueueLine.empty())
 		{
-			TempTicket = TempQueue.front();
-			TempQueue.pop();
-			cout << _Prefix << TempTicket.YourNumber << " <--  ";
+			_clsTicket TempTicket = TempQueueLine.front();
+			cout << " " << TempTicket.FullNumber() << " <-- ";
+			TempQueueLine.pop();
 		}
 	}
 
-	void PrintTicketsLTR()
+	void PrintTicketsLineLTR()
 	{
-		queue <_clsTicket> TempQueue = _MyQueue;
-		_clsTicket TempTicket;
-		cout << "\t\t\tTickets:  ";
-		while (!TempQueue.empty())
+		if (_MyQueueLine.empty())
+			cout << "\n\t\tTickets: No Tickets.";
+
+		queue<_clsTicket> TempQueueLine = _MyQueueLine;
+		stack <_clsTicket> TempStack;
+		while (!TempQueueLine.empty())
 		{
-			TempTicket = TempQueue.back();
-			TempQueue.pop();
-			cout << _Prefix << TempTicket.YourNumber << " -->  ";
+			TempStack.push(TempQueueLine.front());
+			TempQueueLine.pop();
+		}
+
+		while (!TempStack.empty())
+		{
+			_clsTicket TempTicket = TempStack.top();
+			cout << " " << TempTicket.FullNumber() << " --> ";
+			TempStack.pop();
 		}
 
 	}
-
 
 	void PrintAllTickets()
 	{
-		cout << "\n\n\t\t\t\t\t\t  ---Tickets---";
-		cout << "\n\t\t\t\t\t__________________________________\n\n";
-		queue <_clsTicket> TempQueue = _MyQueue;
-		_clsTicket TempTicket;
-		while (!TempQueue.empty())
+		cout << "\n\n\t\t\t       ---Tickets---";
+
+		if (_MyQueueLine.empty())
+			cout << "\n\n\t\t\t     ---No Tickets---\n";
+
+		//we copy the queue in order not to lose the original
+		queue <_clsTicket> TempQueueLine = _MyQueueLine;
+
+
+		while (!TempQueueLine.empty())
 		{
-			TempTicket = TempQueue.front();
-			TempQueue.pop();
-			_PrintTicket(TempTicket);
-			cout << "\n\t\t\t\t\t__________________________________\n\n";
-			cout << "\n\t\t\t\t\t__________________________________\n\n";
+			TempQueueLine.front().Print();
+			TempQueueLine.pop();
 		}
 
 	}
 
-
-	void ServeNextClient()
+	int WaitingClients()
 	{
-		_ServedClients++;
-		_MyQueue.pop();
+		return _MyQueueLine.size();
 	}
+
 
 };
 
